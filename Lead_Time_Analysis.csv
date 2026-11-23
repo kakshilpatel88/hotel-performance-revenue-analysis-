@@ -1,0 +1,5 @@
+Lead_Time_Group,Bookings,Revenue,Cancelled,Cancellation_Rate_Pct
+0-7 days,9,4166.63,3,33.33333333333333
+8-30 days,9,4780.07,1,11.11111111111111
+31-60 days,12,4694.02,2,16.666666666666664
+61+ days,0,0.0,0,

@@ -1,0 +1,4 @@
+Room_Type,Bookings,Cancelled,Cancellation_Rate_Pct
+Suite,9,1,11.11111111111111
+Standard,15,5,33.33333333333333
+Deluxe,6,0,0.0

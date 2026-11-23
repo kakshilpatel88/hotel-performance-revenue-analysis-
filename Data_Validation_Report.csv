@@ -1,0 +1,13 @@
+Check,Result,Expected
+Row count,30,Informational
+Missing cells,0,Must be 0
+Duplicate full rows,0,Must be 0
+Duplicate Booking_ID,0,Must be 0
+Booking date after check-in,0,Must be 0
+Lead time mismatch,0,Must be 0
+Month does not match check-in month,0,Must be 0
+Negative Actual_Revenue,0,Must be 0
+Cancellation flag mismatch,0,Must be 0
+Occupied room nights mismatch,0,Must be 0
+Cancelled bookings with nonzero Actual_Revenue,0,Must be 0
+Cancelled rows with Room_Revenue=0,6,Expected cancellation treatment

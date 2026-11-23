@@ -1,0 +1,4 @@
+Room_Type,Bookings,Revenue,Occupied_Room_Nights,Cancelled,Realized_ADR,Cancellation_Rate_Pct
+Suite,9,5863.37,23,1,254.9291304347826,11.11111111111111
+Standard,15,4818.65,44,5,109.51477272727271,33.33333333333333
+Deluxe,6,2958.7,19,0,155.72105263157894,0.0

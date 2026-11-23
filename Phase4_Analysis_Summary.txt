@@ -1,0 +1,55 @@
+HOTEL REVENUE ANALYSIS – PHASE 4 PYTHON RESULTS
+================================================
+
+Dataset
+-------
+Rows: 30
+Columns: 17
+Date coverage by check-in month: 2025-01 to 2025-02
+Bookings: 30
+
+KEY PERFORMANCE INDICATORS
+--------------------------
+Total bookings: 30
+Stayed bookings: 24
+Cancelled bookings: 6
+Cancellation rate: 20.00%
+Total realized revenue: $13,640.72
+Occupied room nights: 86
+Realized ADR (revenue / occupied room nights): $158.61
+
+DATA QUALITY
+------------
+Missing cells: 0
+Duplicate rows: 0
+Duplicate booking IDs: 0
+Booking-date-after-check-in errors: 0
+Lead-time mismatches: 0
+Month/check-in mismatches: 0
+Cancellation flag mismatches: 0
+Occupied room-night mismatches: 0
+
+Important interpretation: Room_Revenue is zero for all six cancelled bookings even though ADR × Nights gives a potential booking value. This is expected cancellation treatment, not a data error. Actual_Revenue is zero for cancelled bookings.
+
+BUSINESS FINDINGS
+-----------------
+January revenue: $6,601.48
+February revenue: $7,039.24
+Higher-revenue month: February
+Top room type by realized revenue: Suite ($5,863.37)
+Top booking channel by realized revenue: Booking.com ($4,588.64)
+Top customer segment by realized revenue: Leisure ($9,201.13)
+Highest channel cancellation rate: Expedia (42.86% based on 7 bookings)
+
+OUTLIER REVIEW
+--------------
+IQR outliers are provided in Outlier_Review.csv. These are review flags only; do not delete them without investigating.
+
+LIMITATIONS
+-----------
+This is a small sample of 30 bookings across two check-in months. Findings describe this dataset only and should not be generalized to all hotel operations. Correlation does not establish causation.
+
+POWER BI HANDOFF
+----------------
+Use Cleaned_Hotel_Data.csv as the main booking-level dataset for Power BI.
+Use the other CSV files as optional supporting analysis tables. Avoid importing both the raw booking data and duplicate aggregate tables unless you intentionally need them.

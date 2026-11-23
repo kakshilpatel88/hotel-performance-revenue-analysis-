@@ -1,0 +1,2 @@
+Metric,Booking_ID,Status,Room_Type,Channel,ADR,Lower_Bound,Upper_Bound,Actual_Revenue
+Actual_Revenue,BK025,Stayed,Suite,Booking.com,,-140.96249999999998,991.1574999999999,1304.8

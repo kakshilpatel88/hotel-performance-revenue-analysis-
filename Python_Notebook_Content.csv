@@ -1,0 +1,130 @@
+"cell_number","cell_type","source_content","output_text"
+"1","markdown","# Phase 4 – Hotel Revenue Advanced Python Analysis
+
+Run cells from top to bottom in Google Colab. Upload the CSV when prompted. Outputs are saved in `Hotel_Python_Phase4_Completed`.",""
+"2","code","import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from google.colab import files
+import os
+
+uploaded = files.upload()
+file_name = next(iter(uploaded))
+df = pd.read_csv(file_name)
+print(""Loaded:"", file_name, ""| Shape:"", df.shape)
+display(df.head())
+",""
+"3","code","# Step 3: clean and prepare data
+df = df.copy()
+for c in [""Booking_Date"", ""Check_In""]:
+    df[c] = pd.to_datetime(df[c], errors=""coerce"")
+for c in [""Booking_ID"",""Room_Type"",""Channel"",""Segment"",""Status"",""Month"",""Weekend_Type""]:
+    df[c] = df[c].astype(""string"").str.strip()
+print(""Missing values by column:"")
+display(df.isna().sum().to_frame(""Missing""))
+print(""Duplicate rows:"", df.duplicated().sum())
+print(""Duplicate Booking_ID:"", df[""Booking_ID""].duplicated().sum())
+",""
+"4","code","# Step 4: data validation
+validation = pd.DataFrame([
+    (""Missing cells"", int(df.isna().sum().sum())),
+    (""Duplicate rows"", int(df.duplicated().sum())),
+    (""Duplicate Booking_ID"", int(df.Booking_ID.duplicated().sum())),
+    (""Booking after check-in"", int((df.Booking_Date > df.Check_In).sum())),
+    (""Lead time mismatch"", int(((df.Check_In-df.Booking_Date).dt.days != df.Lead_Time_Days).sum())),
+    (""Month mismatch"", int((df.Month != df.Check_In.dt.strftime(""%Y-%m"")).sum())),
+    (""Cancellation flag mismatch"", int((df.Cancellation_Flag != (df.Status==""Cancelled"").astype(int)).sum())),
+    (""Occupied room-night mismatch"", int((df.Occupied_Room_Nights != np.where(df.Status==""Stayed"",df.Nights,0)).sum())),
+], columns=[""Check"",""Issue_Count""])
+display(validation)
+",""
+"5","code","# Step 5: hotel KPIs
+total_bookings = len(df)
+total_revenue = df.Actual_Revenue.sum()
+stayed_bookings = (df.Status == ""Stayed"").sum()
+cancelled_bookings = (df.Status == ""Cancelled"").sum()
+occupied_nights = df.Occupied_Room_Nights.sum()
+realized_adr = total_revenue / occupied_nights if occupied_nights else np.nan
+cancellation_rate = cancelled_bookings / total_bookings * 100
+kpis = pd.DataFrame({""KPI"":[""Total Bookings"",""Stayed Bookings"",""Cancelled Bookings"",""Total Revenue"",""Occupied Room Nights"",""Realized ADR"",""Cancellation Rate (%)""],
+                     ""Value"":[total_bookings,stayed_bookings,cancelled_bookings,total_revenue,occupied_nights,realized_adr,cancellation_rate]})
+display(kpis)
+",""
+"6","code","# Step 6: monthly performance
+monthly = df.groupby(""Month"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum""),
+    Stayed=(""Status"",lambda s:(s==""Stayed"").sum()),Cancelled=(""Cancellation_Flag"",""sum""),
+    Occupied_Room_Nights=(""Occupied_Room_Nights"",""sum"")).reset_index()
+monthly[""Realized_ADR""] = monthly.Revenue / monthly.Occupied_Room_Nights.replace(0,np.nan)
+display(monthly)
+monthly.plot(x=""Month"",y=""Revenue"",kind=""bar"",legend=False,title=""Monthly Hotel Revenue"",ylabel=""Revenue ($)"")
+plt.tight_layout(); plt.show()
+",""
+"7","code","# Step 7: room type performance
+room = df.groupby(""Room_Type"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum""),
+    Occupied_Room_Nights=(""Occupied_Room_Nights"",""sum""),Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+room[""Realized_ADR""] = room.Revenue / room.Occupied_Room_Nights.replace(0,np.nan)
+room[""Cancellation_Rate_Pct""] = room.Cancelled / room.Bookings * 100
+display(room.sort_values(""Revenue"",ascending=False))
+",""
+"8","code","# Step 8: booking channel performance
+channel = df.groupby(""Channel"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum""),
+    Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+channel[""Cancellation_Rate_Pct""] = channel.Cancelled / channel.Bookings * 100
+display(channel.sort_values(""Revenue"",ascending=False))
+",""
+"9","code","# Step 9: customer segments
+segment = df.groupby(""Segment"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum""),
+    Occupied_Room_Nights=(""Occupied_Room_Nights"",""sum""),Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+segment[""Cancellation_Rate_Pct""] = segment.Cancelled / segment.Bookings * 100
+display(segment)
+",""
+"10","code","# Step 10: cancellation analysis by channel, room type, segment
+def cancellation_summary(group_col):
+    result = df.groupby(group_col).agg(Bookings=(""Booking_ID"",""count""),Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+    result[""Cancellation_Rate_Pct""] = result.Cancelled / result.Bookings * 100
+    return result
+display(cancellation_summary(""Channel""))
+display(cancellation_summary(""Room_Type""))
+display(cancellation_summary(""Segment""))
+",""
+"11","code","# Step 11: weekday vs weekend
+weekend = df.groupby(""Weekend_Type"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum""),
+    Occupied_Room_Nights=(""Occupied_Room_Nights"",""sum""),Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+weekend[""Cancellation_Rate_Pct""] = weekend.Cancelled / weekend.Bookings * 100
+display(weekend)
+",""
+"12","code","# Step 12: lead time and length of stay
+df[""Lead_Time_Group""] = pd.cut(df.Lead_Time_Days,bins=[-1,7,30,60,np.inf],
+    labels=[""0-7 days"",""8-30 days"",""31-60 days"",""61+ days""])
+lead = df.groupby(""Lead_Time_Group"",observed=False).agg(Bookings=(""Booking_ID"",""count""),
+    Revenue=(""Actual_Revenue"",""sum""),Cancelled=(""Cancellation_Flag"",""sum"")).reset_index()
+stay = df.groupby(""Nights"").agg(Bookings=(""Booking_ID"",""count""),Revenue=(""Actual_Revenue"",""sum"")).reset_index()
+display(lead); display(stay)
+",""
+"13","code","# Step 13: IQR outlier review – investigate flags; do not automatically delete
+def iqr_outliers(frame, col):
+    q1,q3 = frame[col].quantile([.25,.75]); iqr=q3-q1
+    low,high=q1-1.5*iqr,q3+1.5*iqr
+    return frame.loc[(frame[col]<low)|(frame[col]>high),[""Booking_ID"",""Status"",""Room_Type"",""Channel"",col]], low, high
+adr_outliers, adr_low, adr_high = iqr_outliers(df,""ADR"")
+print(""ADR thresholds:"",adr_low,adr_high); display(adr_outliers)
+",""
+"14","code","# Step 14: correlation
+num_cols=[""Nights"",""Guests"",""Lead_Time_Days"",""ADR"",""Actual_Revenue"",""Occupied_Room_Nights""]
+correlation = df[num_cols].corr()
+display(correlation)
+plt.figure(figsize=(8,6)); plt.imshow(correlation,aspect=""auto""); plt.colorbar(label=""Correlation"")
+plt.xticks(range(len(num_cols)),num_cols,rotation=45,ha=""right""); plt.yticks(range(len(num_cols)),num_cols)
+plt.title(""Hotel Data Correlation Matrix""); plt.tight_layout(); plt.show()
+",""
+"15","code","# Step 15: export tables for portfolio and Power BI
+out=""Hotel_Python_Phase4_Completed""
+os.makedirs(out,exist_ok=True)
+exports={""Cleaned_Hotel_Data.csv"":df,""Hotel_KPIs.csv"":kpis,""Data_Validation_Report.csv"":validation,
+         ""Monthly_Performance.csv"":monthly,""Room_Type_Analysis.csv"":room,""Channel_Analysis.csv"":channel,
+         ""Customer_Segment_Analysis.csv"":segment,""Weekday_Weekend_Analysis.csv"":weekend,
+         ""Lead_Time_Analysis.csv"":lead,""Length_of_Stay_Analysis.csv"":stay}
+for filename,table in exports.items():
+    table.to_csv(os.path.join(out,filename),index=False)
+print(""Exported files:"",list(exports.keys()))
+",""
