@@ -1,0 +1,31 @@
+Booking_ID,Booking_Date,Check_In,Nights,Room_Type,Channel,Segment,Guests,Lead_Time_Days,ADR,Status,Month,Room_Revenue,Weekend_Type,Actual_Revenue,Occupied_Room_Nights,Cancellation_Flag
+BK001,2024-11-06,2025-01-01,4,Deluxe,Corporate,Business,1,56,136.44,Stayed,2025-01,545.76,Weekday,545.76,4,0
+BK002,2024-11-25,2025-01-06,2,Deluxe,Direct Website,Leisure,2,42,149.87,Stayed,2025-01,299.74,Weekday,299.74,2,0
+BK003,2025-01-05,2025-01-09,7,Standard,Booking.com,Leisure,2,4,109.38,Stayed,2025-01,765.66,Weekday,765.66,7,0
+BK004,2024-11-22,2025-01-10,3,Standard,Booking.com,Leisure,2,49,109.62,Stayed,2025-01,328.86,Weekday,328.86,3,0
+BK005,2024-11-28,2025-01-11,3,Suite,Expedia,Leisure,2,44,263.32,Cancelled,2025-01,0.0,Weekend,0.0,0,1
+BK006,2024-11-17,2025-01-12,2,Suite,Expedia,Leisure,1,56,234.56,Stayed,2025-01,469.12,Weekend,469.12,2,0
+BK007,2025-01-14,2025-01-14,5,Standard,Walk-in/Phone,Business,2,0,111.13,Stayed,2025-01,555.65,Weekday,555.65,5,0
+BK008,2024-12-12,2025-01-15,5,Standard,Direct Website,Leisure,1,34,112.11,Stayed,2025-01,560.55,Weekday,560.55,5,0
+BK009,2024-12-19,2025-01-16,3,Standard,Expedia,Leisure,3,28,104.57,Cancelled,2025-01,0.0,Weekday,0.0,0,1
+BK010,2025-01-21,2025-01-21,5,Standard,Walk-in/Phone,Leisure,2,0,111.83,Stayed,2025-01,559.15,Weekday,559.15,5,0
+BK011,2024-11-28,2025-01-22,4,Standard,Booking.com,Leisure,2,55,101.27,Stayed,2025-01,405.08,Weekday,405.08,4,0
+BK012,2025-01-22,2025-01-25,2,Standard,Expedia,Leisure,1,3,114.2,Cancelled,2025-01,0.0,Weekend,0.0,0,1
+BK013,2025-01-17,2025-01-28,3,Deluxe,Direct Website,Business,2,11,154.26,Stayed,2025-01,462.78,Weekday,462.78,3,0
+BK014,2024-12-14,2025-01-30,3,Suite,Direct Website,Leisure,1,47,260.11,Stayed,2025-01,780.33,Weekday,780.33,3,0
+BK015,2025-01-31,2025-01-31,3,Suite,Walk-in/Phone,Business,2,0,289.6,Stayed,2025-01,868.8,Weekday,868.8000000000001,3,0
+BK016,2025-01-16,2025-02-01,5,Standard,Booking.com,Leisure,1,16,112.79,Stayed,2025-02,563.95,Weekend,563.95,5,0
+BK017,2024-12-31,2025-02-03,3,Standard,Corporate,Business,2,34,93.21,Stayed,2025-02,279.63,Weekday,279.63,3,0
+BK018,2024-12-13,2025-02-05,2,Deluxe,Expedia,Leisure,3,54,147.72,Stayed,2025-02,295.44,Weekday,295.44,2,0
+BK019,2024-12-23,2025-02-06,3,Suite,Expedia,Leisure,1,45,243.17,Stayed,2025-02,729.51,Weekday,729.51,3,0
+BK020,2025-01-20,2025-02-08,2,Standard,Direct Website,Business,1,19,116.31,Stayed,2025-02,232.62,Weekend,232.62,2,0
+BK021,2025-01-27,2025-02-09,3,Deluxe,Expedia,Leisure,2,13,142.71,Stayed,2025-02,428.13,Weekend,428.13,3,0
+BK022,2025-01-15,2025-02-10,2,Suite,Booking.com,Leisure,2,26,268.34,Stayed,2025-02,536.68,Weekday,536.68,2,0
+BK023,2025-02-12,2025-02-12,2,Suite,Walk-in/Phone,Leisure,1,0,245.26,Stayed,2025-02,490.52,Weekday,490.52,2,0
+BK024,2025-02-02,2025-02-17,5,Standard,Direct Website,Business,2,15,113.5,Stayed,2025-02,567.5,Weekday,567.5,5,0
+BK025,2025-01-21,2025-02-20,5,Suite,Booking.com,Leisure,2,30,260.96,Stayed,2025-02,1304.8,Weekday,1304.8,5,0
+BK026,2025-02-22,2025-02-22,5,Deluxe,Walk-in/Phone,Business,2,0,185.37,Stayed,2025-02,926.85,Weekend,926.85,5,0
+BK027,2025-01-29,2025-02-23,3,Suite,Booking.com,Leisure,2,25,227.87,Stayed,2025-02,683.61,Weekend,683.61,3,0
+BK028,2025-01-21,2025-02-24,3,Standard,Booking.com,Leisure,2,34,100.96,Cancelled,2025-02,0.0,Weekday,0.0,0,1
+BK029,2025-02-23,2025-02-27,3,Standard,Booking.com,Leisure,1,4,102.79,Cancelled,2025-02,0.0,Weekday,0.0,0,1
+BK030,2025-02-28,2025-02-28,2,Standard,Walk-in/Phone,Business,2,0,125.49,Cancelled,2025-02,0.0,Weekday,0.0,0,1
